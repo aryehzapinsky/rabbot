@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import SelectField, RadioField
 from wtforms.validators import DataRequired
+from app.playback import Player
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -15,3 +17,9 @@ class ControllerForm(FlaskForm):
     save_sequence = SubmitField('Save Sequence')
     reset_sequence = SubmitField('Reset Sequence')
     name = StringField('Name')
+
+class PlaybackForm(FlaskForm):
+    selection = RadioField('Sequences')
+
+    play_forward = SubmitField('Forward')
+    play_backward = SubmitField('Backward')

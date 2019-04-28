@@ -47,7 +47,7 @@ class Recorder():
         time_str = datetime.datetime.strftime(datetime.datetime.now(), "%m_%d_%H_%M")
         cls.sequence['name'] = "{}--{}".format(time_str, name)
 
-        with open('sequences.json', "a+") as fp:
+        with open('sequences.txt', "a+") as fp:
             json.dump(cls.sequence, fp)
             fp.write('\n')
             fp.flush()

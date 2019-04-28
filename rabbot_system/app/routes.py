@@ -1,7 +1,8 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm, ControllerForm
+from app.forms import LoginForm, ControllerForm, PlaybackForm
 from app.recorder import Recorder
+from app.playback import Player
 
 @app.route('/')
 @app.route('/index')
@@ -49,3 +50,20 @@ def controller():
             flash('Record positions was clicked')
         return redirect(url_for('controller'))
     return render_template('controller.html', form=form)
+
+@app.route('/playback', methods=['GET', 'POST'])
+def playback():
+    form = PlaybackForm()
+
+    sequence_dict = Player().get_sequences()
+    choices = [(k, k) for k in sequence_dict.keys()]
+    form.selection.choices = choices
+
+    if form.validate_on_submit():
+        sequence = form.selection.data
+        if form.play_forward.data:
+            Player.play_sequence(sequence)
+        elif form.play_backward.data:
+            Player.play_sequence(sequence, backwards=True)
+        flash(sequence)
+    return render_template('playback.html', form=form)
