@@ -175,10 +175,10 @@ class LX16A:
 	# Possible angle values (in degrees): [-30, 30], int
 	
 	def angleOffsetAdjust(self, offset):
-		if offset < -30 or offset > 30:
+		if offset < -90 or offset > 90:
 			raise ServoError("Offset out of range")
 		
-		angle = int(angle * 25 / 6)
+		angle = int(offset * 25 / 6)
 		
 		if offset < 0:
 			offset += 256
@@ -211,7 +211,7 @@ class LX16A:
 	def angleLimitWrite(self, lower, upper):
 		if lower < 0 or lower > 240:
 			raise ServoError("Lower bound out of range")
-		if upper < 0 or upper > 240:
+		if upper < 0 or upper > 360:
 			raise ServoError("Upper bound out of range")
 		if lower >= upper:
 			raise ServoError("Lower bound must be less than upper bound")

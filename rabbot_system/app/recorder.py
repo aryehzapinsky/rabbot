@@ -4,7 +4,7 @@ import datetime
 from PyLX_16a.lx16a import *
 
 class Recorder():
-    LX16A.initialize("/dev/cu.usbserial-1410")
+    LX16A.initialize("/dev/ttyUSB0")
     motor_numbers = [11, 12, 13,
                      21, 22, 23,
                      31, 32, 33]

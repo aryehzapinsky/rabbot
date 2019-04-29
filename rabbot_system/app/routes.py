@@ -56,7 +56,7 @@ def playback():
     form = PlaybackForm()
 
     sequence_dict = Player().get_sequences()
-    choices = [(k, k) for k in sequence_dict.keys()]
+    choices = [(k, k) for k in sorted(sequence_dict.keys())]
     form.selection.choices = choices
 
     if form.validate_on_submit():
