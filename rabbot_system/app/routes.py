@@ -48,6 +48,24 @@ def controller():
         elif form.record_positions.data:
             Recorder.record_positions()
             flash('Record positions was clicked')
+        elif form.unlock_hips.data:
+            Recorder.unlock_hips()
+            flash('Unlock hips was clicked')
+        elif form.unlock_knees.data:
+            Recorder.unlock_knees()
+            flash('Unlock knees was clicked')
+        elif form.unlock_ankles.data:
+            Recorder.unlock_ankles()
+            flash('Unlock ankles was clicked')
+        elif form.unlock_group_1.data:
+            Recorder.unlock_group_1()
+            flash('Unlock group 1 was clicked')
+        elif form.unlock_group_2.data:
+            Recorder.unlock_group_2()
+            flash('Unlock group 2 was clicked')
+        elif form.unlock_group_3.data:
+            Recorder.unlock_group_3()
+            flash('Unlock group 3 was clicked')
         return redirect(url_for('controller'))
     return render_template('controller.html', form=form)
 
