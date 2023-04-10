@@ -4,7 +4,7 @@ import time
 from PyLX_16a.lx16a import *
 
 class Player():
-    LX16A.initialize("/dev/cu.usbserial-1410")
+    LX16A.initialize("/dev/ttyUSB0")
     motor_numbers = [11, 12, 13,
                      21, 22, 23,
                      31, 32, 33]
@@ -33,5 +33,12 @@ class Player():
         for step in steps:
             for motor, motor_num in zip(cls.motors, cls.motor_numbers):
                 dur = 2000
-                motor.moveTimeWrite(sequence[str(motor_num)][step], dur)
+                try:
+                    motor.moveTimeWrite(sequence[str(motor_num)][step], dur)
+                except ServoError:
+                    limits = motor.angleLimitRead()
+                    if step < limits[0] or step > 10000:
+                        motor.moveTimeWrite(limits[0], dur)
+                    else:
+                        motor.moveTimeWrite(limits[1], dur)
             time.sleep(2)
